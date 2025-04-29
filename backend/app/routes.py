@@ -13,13 +13,15 @@ def get_news():
     
         articles = []
         for item in raw_articles:
-            article_summary = process_request(item)
-            if article_summary is not None:
-                articles.append({"title": article_summary.headline, "image": item.get("image"), "content": article_summary.summary, "url": item.get("url"), "source": item.get("source")})
+            duplicate = Article.query.filter_by(url=item.get("url")).first()
+            if duplicate is None:
+                article_summary = process_request(item)
+                if article_summary is not None:
+                    articles.append({"title": article_summary.headline, "image": item.get("image"), "description": article_summary.description, "content": article_summary.summary, "url": item.get("url"), "source": item.get("source")})
  
         # create new message entry in db with response
         for item in articles:
-            new_article = Article(title=item.get("title"), content=item.get("content"), image=item.get("image"), author=item.get("author"))
+            new_article = Article(title=item.get("title"), description=item.get("description"), content=item.get("content"), image=item.get("image"), author=item.get("author"))
             db.session.add(new_article)
             db.session.commit()
 

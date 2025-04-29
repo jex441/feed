@@ -20,10 +20,13 @@ class ArticleExtraction(BaseModel):
     confidence_score: float = Field(description="Confidence score between 0 and 1")
 
 class ArticleSummary(BaseModel):
-    summary: str = Field(
-        description="A very concise summary of the article in a neutral tone."
+    description: str = Field(
+        description="A one sentence summary of the article in a neutral tone."
     )
-    headline: str = Field(description="A very concise headline of the article.")
+    summary: str = Field(
+        description="A concise summary of the article in a casual tone."
+    )
+    headline: str = Field(description="A very concise title for the article.")
 
 def extract_article(title: str) -> ArticleExtraction:
     completion = client.beta.chat.completions.parse(
@@ -46,7 +49,7 @@ def summarize_article(raw_article_content: str) -> ArticleSummary:
         messages=[
             {
                 "role": "system",
-                "content": f"summarize this article in one sentence in a casual tone. your response should be in two parts, the content and a very short title for the article.",
+                "content": f"summarize this article in one sentence in a neutral tone. also summarize this article in a casual tone which is a bit more detailed. your response should be in three parts, a one sentence description, the summary, and a very short title for the article.",
             },
             {"role": "user", "content": raw_article_content},
         ],
@@ -110,6 +113,12 @@ def process_request(article):
             content_text = article["content"]
     
     article_summary = summarize_article(content_text)
-    print(article_summary)
+    print('article headline', article_summary.headline)
+    print('article summary', article_summary.summary)   
+    print('article description', article_summary.description)
 
+    # Make sure the article summary has a description
+    if not article_summary.description:
+        article_summary.description = "No description available"
+    
     return article_summary

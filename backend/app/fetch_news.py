@@ -8,7 +8,7 @@ load_dotenv()
 NEWSAPI_KEY = os.getenv("API_KEY")
 NEWSAPI_ENDPOINT = "https://newsapi.org/v2/top-headlines"
 
-def fetch_news(query: str, page_size: int = 1) -> List[Dict]:
+def fetch_news(query: str, page_size: int = 20) -> List[Dict]:
     headers = {
         "Authorization": NEWSAPI_KEY
     }

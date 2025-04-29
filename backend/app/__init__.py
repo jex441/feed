@@ -17,15 +17,19 @@ db = SQLAlchemy(app)
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text(), nullable=False)
+    description = db.Column(db.Text(), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     url = db.Column(db.Text())
     image = db.Column(db.Text())
     author = db.Column(db.Text())
     source = db.Column(db.Text())
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
     def to_dict(self):
         return {
+            "id": self.id,
             "title": self.title,
+            "description": self.description,
             "content": self.content,
             "image": self.image,
             "author": self.author,
