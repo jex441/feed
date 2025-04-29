@@ -6,18 +6,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 NEWSAPI_KEY = os.getenv("API_KEY")
-NEWSAPI_ENDPOINT = "https://newsapi.org/v2/everything"
+NEWSAPI_ENDPOINT = "https://newsapi.org/v2/top-headlines"
 
 def fetch_news(query: str, page_size: int = 1) -> List[Dict]:
     headers = {
         "Authorization": NEWSAPI_KEY
     }
     params = {
-        "q": query,
+       # "q": query,
         "pageSize": page_size,
-        "sortBy": "publishedAt",  # Sort by newest first
-        "language": "en",
-        "sources": ["associated-press", "the-new-york-times, the-wall-street-journal"]
+       # "sortBy": "publishedAt",  # Sort by newest first
+        #"language": "en",
+        "country": "us"
     }
     
     response = requests.get(NEWSAPI_ENDPOINT, headers=headers, params=params)
@@ -34,7 +34,8 @@ def fetch_news(query: str, page_size: int = 1) -> List[Dict]:
             "source": item.get("source", {}).get("name", "Unknown"),
             "publishedAt": item.get("publishedAt"),
             "content": item.get("content"),
-            "image": item.get("urlToImage")
+            "image": item.get("urlToImage"),
+            "source": item.get("source", {}).get("name", "Unknown"),
         })
 
     return articles
