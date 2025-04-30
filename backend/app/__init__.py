@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 app = Flask(__name__)
 CORS(app, 
      resources={r"/api/*": {
@@ -37,5 +38,5 @@ class Article(db.Model):
             "date_created": self.date_created
         }
 
-
-from app import routes  # Import routes after creating app
+# Import routes after creating app (fixed indentation)
+from app import routes

@@ -49,7 +49,7 @@ def summarize_article(raw_article_content: str) -> ArticleSummary:
         messages=[
             {
                 "role": "system",
-                "content": f"summarize this article in one sentence in a neutral tone. also summarize this article in a casual tone which is a bit more detailed. your response should be in three parts, a one sentence description, the summary, and a very short title for the article.",
+                "content": f"summarize this article in one sentence in a neutral tone. also summarize this article in a professional, journalistic tone which is a bit more detailed. your response should be in three parts, a one sentence description, the summary, and a very short title for the article.",
             },
             {"role": "user", "content": raw_article_content},
         ],
@@ -120,5 +120,6 @@ def process_request(article):
     # Make sure the article summary has a description
     if not article_summary.description:
         article_summary.description = "No description available"
+    
     
     return article_summary
