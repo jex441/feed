@@ -35,7 +35,8 @@ class Article(db.Model):
             "image": self.image,
             "author": self.author,
             "source": self.source,
-            "date_created": self.date_created
+            "date_created": self.date_created,
+            "url": self.url
         }
 
 # Import routes after creating app (fixed indentation)

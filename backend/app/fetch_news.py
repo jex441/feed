@@ -18,7 +18,7 @@ def fetch_news(page_size: int = 20) -> List[Dict]:
         #"sortBy": "publishedAt",  # Sort by newest first
         #"language": "en",
         #"country": "us",
-        "sources": "bbc-news,the-guardian-uk,the-times-of-india,the-wall-street-journal,the-new-york-times,the-economist,the-hindu,the-washington-post,the-washington-times,the-new-york-times,the-economist,the-hindu,the-washington-post,the-washington-times"
+        "sources": "the-new-york-post,bbc-news,the-guardian-uk,the-times-of-india,the-wall-street-journal,the-new-york-times,the-economist,the-hindu,the-washington-post,the-washington-times,the-new-york-times,the-economist,the-hindu,the-washington-post,the-washington-times"
     }
     
     response = requests.get(NEWSAPI_ENDPOINT, headers=headers, params=params)
